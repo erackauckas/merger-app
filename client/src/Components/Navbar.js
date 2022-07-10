@@ -11,6 +11,9 @@ function Navbar() {
                     <Link className="navigation" to= "/StockGrid" >Find Transactions</Link>
                 </li>    
                 <li className="navigation" >
+                    <Link className="navigation" to= "/TransactionsList">Transactions</Link>
+                </li>   
+                <li className="navigation" >
                     <Link className="navigation" to= "/AddStock">Add a Transaction</Link>
                 </li>   
                 <li className="navigation" >

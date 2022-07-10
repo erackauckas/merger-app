@@ -7,10 +7,7 @@ function Auth({setUser, setIsAuthenticated}) {
     const [password, setPassword] = useState('')
    
     const [errors, setErrors] = useState([])
-
-
-    window.React2 = require('react');
-console.log(window.React1 === window.React2);
+  
 
     function onSubmit(e){
         e.preventDefault()

@@ -3,15 +3,12 @@ import React, {useState} from 'react';
 function AddStock() {
     const [formData, setFormData]= useState({
         
-        date_announced: "",
-        ticker: "",
-        company_name: "",
-        current_price: "",
-        acquiring_company: "",
+        ticker: "",               
         acquiring_company_ticker: "",
         offer_price: "",
         expected_close_date: "",
-        deal_type: ""
+        deal_type: "",
+        status: ""
      });
 
     function handleChange(event) {
@@ -28,15 +25,12 @@ function AddStock() {
             
             body: JSON.stringify({
 
-                date_announced: formData.date_announced,
-                ticker: formData.ticker,
-                company_name: formData.company_name,
-                current_price: formData.current_price,
-                acquiring_company: formData.acquiring_company,
-                acquiring_company_ticker: formData.acquiring_company_ticker,
-                offer_price: formData.offer_price,
+                
+                ticker: formData.ticker,               
+                acquiring_company_ticker: formData.acquiring_company_ticker,               
                 expected_close_date: formData.expected_close_date,
-                deal_type: formData.deal_type
+                deal_type: formData.deal_type,
+                status: formData.status
             }),
         });
         }

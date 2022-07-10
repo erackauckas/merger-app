@@ -7,6 +7,9 @@ import StockGrid from "./Components/StockGrid";
 import Login from "./Components/Login";
 import Auth from "./Components/Auth";
 import Navigation from "./Components/Navigation";
+import TransactionsList from "./Components/TransactionsList";
+import AccountContainer from "./Components/AccountContainer";
+
 
 
 
@@ -18,7 +21,8 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false)
   const [user, setUser] = useState(null);
 
-  useEffect(() => {   
+  useEffect(() => {     
+    
     fetch('/authorized_user')    
     .then((res) => {
       if (res.ok) {
@@ -55,18 +59,23 @@ function App() {
 
   function handleStockSearch(e){    
     const filteredStock=stocks.filter(stock=>{      
-      return stock.ticker.includes(e.target.value)           
+      console.log("function HandleStockSearch ran") 
+      // function handlestocksearch ran
+      return stock.ticker.includes(e.target.value)     
     })
     setFilteredStocks(filteredStock)
+    console.log(filteredStocks)
   }
   useEffect(() =>{
     setFilteredStocks(stocks)
   }, [stocks]);
+  console.log(stocks)
 
   return ( 
     <BrowserRouter>
     <Navbar />
     <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user} setIsAdmin={setIsAdmin}/>
+    <AccountContainer filteredStocks={filteredStocks} addStock={AddStock} handleStockSearch={handleStockSearch} />
     <br></br>
     <Search handleStockSearch= {handleStockSearch} />
       <div className="App">
@@ -80,6 +89,7 @@ function App() {
         <Routes>
         <Route exact path={"/"} element={<StockGrid handleStockSearch={handleStockSearch} stocks={filteredStocks} Search={Search}/>} />
         <Route exact path={"/StockGrid"} element={<StockGrid handleStockSearch={handleStockSearch} stocks={filteredStocks} Search={Search} isAuthenticated={isAuthenticated} />} />
+        <Route exact path={"/TransactionsList"} element={<TransactionsList handleStockSearch={handleStockSearch}  handlePost={handlePost} errors={errors} stocks={stocks} Search={Search}/>} />
         <Route exact path={"/AddStock"} element={<AddStock handleStockSearch={handleStockSearch}  handlePost={handlePost} errors={errors} stocks={filteredStocks} Search={Search}/>} />
         <Route exact path={"/Signup"} element={<Auth setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />          
         <Route exact path={"/Login"} element={<Login setIsAuthenticated={setIsAuthenticated} setUser={setUser} setIsAdmin={setIsAdmin}/>} />

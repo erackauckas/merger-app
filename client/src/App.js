@@ -3,12 +3,12 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Search from "./Components/Search";
 import AddStock from "./Components/AddStock";
+import StockGrid from "./Components/StockGrid";
 import Login from "./Components/Login";
 import Auth from "./Components/Auth";
 import Navigation from "./Components/Navigation";
+import TransactionsList from "./Components/TransactionsList";
 import AccountContainer from "./Components/AccountContainer";
-import Transaction from "./Components/Transaction";
-
 
 
 
@@ -20,18 +20,6 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false)
   const [user, setUser] = useState(null);
-
-  // const finnhub = require('finnhub');
-
-  // const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-  // api_key.apiKey = "cb6eu6aad3i70tu65u60" // Replace this
-  // const finnhubClient = new finnhub.DefaultApi()
-
-  // finnhubClient.quote("AAPL", (error, data, response) => {
-  //   console.log(data)
-// });
-
-
 
   useEffect(() => {     
     
@@ -52,6 +40,7 @@ function App() {
     .then((data) => setStocks(data));
   },[]);
 
+
   function handlePost(obj){
     fetch('/stocks',{
       method:'POST',
@@ -67,27 +56,28 @@ function App() {
       }
     })
   }
-let filteredStock = stocks
+
   function handleStockSearch(e){    
-    filteredStock=stocks.filter((stock)=>{    
-      
+    const filteredStock=stocks.filter(stock=>{      
+      console.log("function HandleStockSearch ran") 
+      // function handlestocksearch ran
       return stock.ticker.includes(e.target.value)     
     })
     setFilteredStocks(filteredStock)
-   
+    console.log(filteredStocks)
   }
   useEffect(() =>{
     setFilteredStocks(stocks)
   }, [stocks]);
-  
+  console.log(stocks)
 
   return ( 
     <BrowserRouter>
     <Navbar />
     <Navigation setIsAuthenticated={setIsAuthenticated} setUser={setUser} user={user} setIsAdmin={setIsAdmin}/>
-    {/* <AccountContainer filteredStocks={filteredStocks} addStock={AddStock} handleStockSearch={handleStockSearch} stockList={stocks} /> */}
+    <AccountContainer filteredStocks={filteredStocks} addStock={AddStock} handleStockSearch={handleStockSearch} />
     <br></br>
-    {/* <Search handleStockSearch= {handleStockSearch} /> */}
+    <Search handleStockSearch= {handleStockSearch} />
       <div className="App">
       {(isAuthenticated) ? (
                 <h2>Welcome, {user.name}!</h2> 
@@ -97,13 +87,13 @@ let filteredStock = stocks
             }
       <Outlet />
         <Routes>
-        <Route exact path={"/"} element={<AccountContainer handleStockSearch={handleStockSearch} stocks={filteredStocks} Search={Search}/>} />        
-        <Route exact path={"/TransactionsList"} element={<AccountContainer handleStockSearch={handleStockSearch}  handlePost={handlePost} errors={errors} stocks={filteredStocks}  Search={Search}/>} />
-        <Route exact path={"/AddStock"} element={<AddStock handleStockSearch={handleStockSearch}  handlePost={handlePost} setIsAdmin={setIsAdmin} errors={errors} filteredStocks={filteredStocks} Search={Search}/>} />
+        <Route exact path={"/"} element={<StockGrid handleStockSearch={handleStockSearch} stocks={filteredStocks} Search={Search}/>} />
+        <Route exact path={"/StockGrid"} element={<StockGrid handleStockSearch={handleStockSearch} stocks={filteredStocks} Search={Search} isAuthenticated={isAuthenticated} />} />
+        <Route exact path={"/TransactionsList"} element={<TransactionsList handleStockSearch={handleStockSearch}  handlePost={handlePost} errors={errors} stocks={stocks} Search={Search}/>} />
+        <Route exact path={"/AddStock"} element={<AddStock handleStockSearch={handleStockSearch}  handlePost={handlePost} errors={errors} stocks={filteredStocks} Search={Search}/>} />
         <Route exact path={"/Signup"} element={<Auth setIsAuthenticated={setIsAuthenticated} setUser={setUser}/>} />          
         <Route exact path={"/Login"} element={<Login setIsAuthenticated={setIsAuthenticated} setUser={setUser} setIsAdmin={setIsAdmin}/>} />
-        <Route exact path={"/TransactionsList/:id"} element={<AccountContainer handleStockSearch={handleStockSearch} stocks={filteredStocks} Search={Search}  />}>
-          </Route>    
+        <Route exact path={"/StockGrid/:id"} element={<StockGrid handleStockSearch={handleStockSearch} stocks={filteredStocks} Search={Search} isAdmin={isAdmin} setStocks={setStocks}/>}></Route>    
         </Routes>
       </div>
     </BrowserRouter> 

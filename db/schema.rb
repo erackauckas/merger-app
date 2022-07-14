@@ -28,15 +28,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_06_192030) do
   end
 
   create_table "stocks", force: :cascade do |t|
+    t.date "date_announced"
     t.string "ticker"
     t.string "company_name"
+    t.integer "current_price"
     t.string "acquiring_company"
     t.string "acquiring_company_ticker"
-    t.datetime "expected_close_date"
+    t.integer "offer_price"
+    t.date "expected_close_date"
+    t.integer "days_until_closing"
+    t.integer "flat_profit"
+    t.integer "percent_profit"
+    t.integer "annualized_profit_percent"
     t.string "deal_type"
-    t.float "stock_comp"
-    t.float "cash_comp"
-    t.string "status"
+    t.boolean "progress"
     t.boolean "add_to_watchlist", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,7 +52,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_06_192030) do
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_digest"
   end
 
 end

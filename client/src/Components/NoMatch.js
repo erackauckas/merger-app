@@ -1,7 +1,9 @@
-import React from "react";
+import React from 'react'
 
 function NoMatch() {
-  return <div>No results matched your request</div>;
+  return (
+    <div>No results matched your request</div>
+  )
 }
 
-export default NoMatch;
+export default NoMatch

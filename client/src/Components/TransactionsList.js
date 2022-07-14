@@ -1,77 +1,46 @@
-import Transaction from "./Transaction";
-// import { useState}  from "react"
-function TransactionsList({ filteredStocks }) {
-// const [percentProfit, setPercentProfit] = useState(null)
-//   function handleSort () {
-//     filteredStocks.sort((a,b) => a-b);
-//   }
+import React from 'react'
+import Transaction from './Transaction'
 
-// function sortTable() {
-//   let table, rows, switching, i, x, y, shouldSwitch;
-//   table=document.getElementById("myTable");
-//   switching=true;
-//   while (switching) {
-//     switching= false;
-//     rows=table.rows;
-//     for (i=1; i<(rows.length-1); i++) {
-//       shouldSwitch=false;
-//       x=rows[i].getElementsByTagName("td")[0];
-//       y=rows[i+1].getElementsByTagName("td")[0];
-//       if (Number(x.innterHTML) > Number(y.innterHTML)){
-//         shouldSwitch=true;
-//         break;
-//       }
-//   }
-//   if (shouldSwitch) {
-//     rows[i].parentNode.insertBefore(rows[i+1], rows[i]);
-//     switching=true;
-//   }
-// }
-  const transactionRows = filteredStocks.map((singleTransaction) => {
-    return (
-      <Transaction key={singleTransaction.id} transaction={singleTransaction} />
-    );
-    
-  });
+function TransactionsList({stocks}) {
+// // console.log(setFilteredStocks)
+// //   const filterTransactions = setFilteredStocks
+console.log(stocks)
+   
+  let filterTransactions =  stocks.map(singleTransaction => {
+    return <Transaction key={singleTransaction.id} Ticker={singleTransaction.ticker} acquiring_company_ticker={singleTransaction.acquiring_company_ticker} expected_close_date={singleTransaction.expected_close_date} deal_type={singleTransaction.deal_type} status={singleTransaction.status} />
+  })
 
   return (
-    <table className="merger_table" id="myTable">
-      <tbody>
-        <tr>
-          <th>
-            <h3 className="Title">Ticker</h3>
-          </th>
-          <th>
-            <h3 className="Title">Current Price</h3>
-          </th>
-          <th>
-            <h3 className="Title">Acquiring Company </h3>
-          </th>
-          <th>
-            <h3 className="Title">Offer Price</h3>
-          </th>
-          <th>
-            <h3 className="Title">Expected Close Date</h3>
-          </th>
-          <th>
-            <h3 className="Title">Profit Percent 
-            {/* <button onClick="sortTable()">Sort</button> */}
-            <br></br></h3>
-          </th>
-          <th>
-            <h3 className="Title">Annualized Profit Percent</h3>
-          </th>
-          <th>
-            <h3 className="Title">Deal Type</h3>
-          </th>
-          <th>
-            <h3 className="Title">Status</h3>
-          </th>
-        </tr>
-        {transactionRows}
-      </tbody>
-    </table>
-  );
+    <table className="ui celled striped padded table">
+    <tbody>
+      <tr>
+        <th>
+          <h3 className="ui center aligned header">Ticker</h3>
+        </th>
+        <th>
+          <h3 className="ui center aligned header">Current Price</h3>
+        </th>
+        <th>
+          <h3 className="ui center aligned header">Acquiring Company Ticker</h3>
+        </th>
+        <th>
+          <h3 className="ui center aligned header">Offer Price</h3>
+        </th>
+        <th>
+          <h3 className="ui center aligned header">Expected Close Date</h3>
+        </th>
+        <th>
+          <h3 className="ui center aligned header">Deal Type</h3>
+        </th>
+        <th>
+          <h3 className="ui center aligned header">Status</h3>
+        </th>
+      </tr>
+      {filterTransactions}     
+    </tbody>
+  </table>
+  )
 }
 
-export default TransactionsList;
+export default TransactionsList
+

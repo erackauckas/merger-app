@@ -27,7 +27,7 @@ class StocksController < ApplicationController
     private
     
     def stock_params
-        params.permit(:ticker, :company_name, :current_price, :acquiring_company, :acquiring_company_ticker, :offer_price, :expected_close_date, :days_until_closing, :deal_type, :cash_comp, :stock_comp, :progress, :status, :holder)
+        params.permit(:date_announced, :ticker, :company_name, :current_price, :acquiring_company, :acquiring_company_ticker, :offer_price, :expected_close_date, :days_until_closing, :deal_type, :progress, :exchange, :holder)
     end
     
     end

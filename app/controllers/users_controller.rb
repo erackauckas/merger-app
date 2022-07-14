@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     skip_before_action :is_authorized?, except: [:create], raise: false
-    before_action :is_admin?, only: [:create]
+    before_action :is_admin?, only: [:update, :destroy]
 
      
      def index 

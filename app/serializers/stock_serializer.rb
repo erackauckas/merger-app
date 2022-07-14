@@ -1,4 +1,4 @@
 class StockSerializer < ActiveModel::Serializer
-  attributes :id, :date_announced, :ticker, :company_name, :current_price, :acquiring_company, :acquiring_company_ticker, :offer_price, :expected_close_date, :days_until_closing, :deal_type, :add_to_watchlist, :progress 
+  attributes :id, :ticker, :company_name, :acquiring_company, :acquiring_company_ticker, :expected_close_date, :stock_comp, :cash_comp, :deal_type, :add_to_watchlist, :status 
 end
 
